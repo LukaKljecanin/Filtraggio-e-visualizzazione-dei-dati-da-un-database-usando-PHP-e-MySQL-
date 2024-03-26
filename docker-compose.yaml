@@ -1,0 +1,28 @@
+version: "3"
+services:
+  web:
+    image: webdevops/php-apache:8.2-alpine
+    ports:
+      - "4500:80"
+    volumes:
+      - ./www:/app
+      #- ./example-app:/app
+
+  db:
+    image: mysql
+    ports:
+      - 3306:3306
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+
+      
